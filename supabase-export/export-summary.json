@@ -1,0 +1,44 @@
+{
+  "exportDate": "2025-04-09T18:49:18.582Z",
+  "tables": [
+    {
+      "table": "profiles",
+      "count": 6
+    },
+    {
+      "table": "projects",
+      "count": 6
+    },
+    {
+      "table": "project_members",
+      "count": 0
+    },
+    {
+      "table": "notification_settings",
+      "count": 0
+    },
+    {
+      "table": "notification_logs",
+      "count": 0
+    },
+    {
+      "table": "api_keys",
+      "count": 4
+    },
+    {
+      "table": "business_plans",
+      "count": 3
+    },
+    {
+      "table": "tasks",
+      "count": 1
+    },
+    {
+      "table": "items",
+      "count": 4
+    }
+  ],
+  "exportDir": "/home/project/supabase-export",
+  "totalTables": 9,
+  "successfulTables": 9
+}

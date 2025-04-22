@@ -1,0 +1,191 @@
+[
+  {
+    "id": "06978739-1d18-4b67-b6d7-bb134ded5845",
+    "title": "Maplecrest Harmony: A Permaculture Oasis",
+    "location": "Maplecrest, NY",
+    "property_status": "owned_land",
+    "values_mission_goals": "Our mission is to create a sustainable and regenerative ecosystem that promotes harmony between humans and nature, while providing abundance for all living beings.",
+    "guilds": [
+      "Three Sisters Guild (corn, beans, squash)",
+      "Pollinator Guild (bee balm, coneflower, milkweed)",
+      "Mushroom Guild (shiitake mushrooms, wood chips)"
+    ],
+    "team": [],
+    "zone_0": "The main building will feature passive solar design, green roof for insulation and habitat, rainwater harvesting system, and composting toilets.",
+    "zone_1": "Zone 1 will include a variety of annual vegetables, herbs, and flowers, along with keyhole garden beds, a small greenhouse, and a worm composting system.",
+    "zone_2": "Zone 2 will consist of fruit trees such as apple, pear, and cherry, as well as berry bushes like blueberry, raspberry, and blackberry. Additionally, there will be a chicken coop for eggs and pest control.",
+    "zone_3": "Zone 3 will have nut trees such as walnut and chestnut, along with perennial herbs like lavender and sage. This zone will also include a small pond for wildlife and irrigation purposes.",
+    "zone_4": "Zone 4 will be left mostly wild, with native plants allowed to thrive and provide habitat for wildlife. This area will be managed to promote biodiversity and ecosystem resilience.",
+    "water": "Water management systems will include swales and berms to capture and slow down water, a greywater recycling system for irrigation, and a small rain garden to filter runoff.",
+    "soil": "Soil management approaches will include cover cropping, mulching, vermiculture, and composting to improve soil fertility and structure.",
+    "power": "Energy systems will consist of solar panels for electricity generation, passive solar design for heating, and a small wind turbine for supplemental power.",
+    "structures": [
+      "Herb Spiral",
+      "Keyhole Garden",
+      "Chicken Tractor",
+      "Rainwater Harvesting System"
+    ],
+    "category": "ecotech incubator",
+    "funding_needs": "1,500,000",
+    "created_by": "ab50c978-19aa-46ac-b4c8-e6e97013ee5b",
+    "created_at": "2025-04-08T03:17:25.433376+00:00",
+    "updated_at": "2025-04-08T04:02:37.866443+00:00"
+  },
+  {
+    "id": "5fc0a4a0-2af6-47da-b5d5-6a9504575b78",
+    "title": "Maplecrest Harmony Farm",
+    "location": "Maplecrest, NY",
+    "property_status": "owned_land",
+    "values_mission_goals": "Creating a resilient and regenerative ecosystem that fosters biodiversity, enhances soil health, conserves water, and produces abundant food in harmony with nature.",
+    "guilds": [
+      "Three Sisters Guild (corn, beans, squash)",
+      "Pollinator Guild (lavender, bee balm, coneflower)",
+      "Nitrogen Fixer Guild (clover, peas, beans)"
+    ],
+    "team": [],
+    "zone_0": "The main house will feature passive solar design, rainwater harvesting system, and a green roof for insulation and biodiversity. Composting toilets and greywater systems will be implemented to reduce water waste.",
+    "zone_1": "Zone 1 will include a variety of perennial herbs such as lavender, sage, and thyme, along with annual vegetables like tomatoes, peppers, and cucumbers. Fruit trees like apple and cherry will also be planted for easy access.",
+    "zone_2": "Zone 2 will consist of berry bushes such as blueberries, raspberries, and blackberries, as well as perennial vegetables like asparagus and rhubarb. A small pond will be added to attract beneficial wildlife.",
+    "zone_3": "Zone 3 will have nut trees such as walnut and chestnut, along with perennial flowers like echinacea and black-eyed susan. A small apiary will be established to support pollinators.",
+    "zone_4": "Zone 4 will be left mostly wild with native trees, shrubs, and wildflowers to provide habitat for local wildlife and encourage natural ecosystem processes.",
+    "water": "Rainwater harvesting systems will be installed throughout the property to capture and store water for irrigation. Swales and hugelkultur beds will be used to slow, spread, and sink water into the soil.",
+    "soil": "Soil health will be improved through the use of cover crops, mulching, and composting. No-till and minimal disturbance practices will be implemented to preserve soil structure and microbial activity.",
+    "power": "The farm will utilize a combination of solar panels and small wind turbines to generate renewable energy. Energy-efficient appliances and LED lighting will be used to minimize electricity consumption.",
+    "structures": [
+      "Greenhouse",
+      "Chicken Coop",
+      "Tool Shed"
+    ],
+    "category": "",
+    "funding_needs": "",
+    "created_by": "afb5f89e-20ce-4f69-a0d6-a3ab31d7d8e6",
+    "created_at": "2025-04-08T04:10:42.892671+00:00",
+    "updated_at": "2025-04-08T04:10:42.892671+00:00"
+  },
+  {
+    "id": "b8193a6b-9781-498e-9bcd-731ac3203983",
+    "title": "Desert Oasis Permaculture Project",
+    "location": "Moab utah",
+    "property_status": "potential_property",
+    "values_mission_goals": "Creating a sustainable oasis in the desert, promoting biodiversity, conserving water, and fostering community resilience.",
+    "guilds": [
+      "Comfrey - Honeybee Guild",
+      "Mesquite - Nitrogen Fixer Guild",
+      "Borage - Pollinator Guild"
+    ],
+    "team": [],
+    "zone_0": "The main building will feature passive solar design, rainwater harvesting system, greywater recycling, and solar panels for energy production.",
+    "zone_1": "Zone 1 will include drought-tolerant herbs like lavender and rosemary, as well as vegetables such as tomatoes and peppers. Companion plants like marigolds and nasturtiums will also be integrated.",
+    "zone_2": "Zone 2 will have fruit trees like pomegranate and fig, along with native shrubs like rabbitbrush and sage. Drip irrigation will be used to conserve water.",
+    "zone_3": "Zone 3 will consist of seasonal crops like corn and squash, as well as perennial herbs like thyme and oregano. A small apiary will be established for pollination.",
+    "zone_4": "Zone 4 will be left mostly wild with native grasses and wildflowers to support local wildlife and beneficial insects.",
+    "water": "Water management systems will include swales and berms to slow, spread, and sink water into the soil. A greywater system will be utilized for irrigation, and a small pond will provide habitat for aquatic plants and animals.",
+    "soil": "Soil management approaches will include mulching with organic matter, cover cropping with nitrogen-fixing plants like legumes, and vermiculture to improve soil fertility.",
+    "power": "Energy systems will consist of solar panels for electricity generation, passive solar design for heating, and potentially a small wind turbine for additional power generation.",
+    "structures": [
+      "Greenhouse",
+      "Chicken Coop",
+      "Tool Shed"
+    ],
+    "category": "Desert farm ",
+    "funding_needs": "",
+    "created_by": "131413a4-9b93-412d-92dd-9acc4fd36e04",
+    "created_at": "2025-04-08T05:20:00.093291+00:00",
+    "updated_at": "2025-04-08T05:20:33.461438+00:00"
+  },
+  {
+    "id": "68e042dd-c1d7-4e06-bc23-8f30a98f71e1",
+    "title": "Catskill Harmony Homestead",
+    "location": "catskill, ny",
+    "property_status": "potential_property",
+    "values_mission_goals": "Creating a regenerative and resilient homestead that harmonizes with the local ecosystem, promotes biodiversity, and provides sustainable living practices for the community.",
+    "guilds": [
+      "Apple Guild: Apple tree, comfrey, chives, marigold",
+      "Berry Guild: Raspberry bush, strawberry plant, borage, dill",
+      "Nut Guild: Walnut tree, nitrogen-fixing shrubs, clover, garlic"
+    ],
+    "team": [],
+    "zone_0": "The main building will be a passive solar design with large windows facing south to maximize sunlight in the winter. It will also feature a green roof for insulation and rainwater harvesting, as well as a composting toilet system for nutrient recycling.",
+    "zone_1": "Zone 1 will include a variety of perennial herbs such as thyme, oregano, and chives, along with annual vegetables like tomatoes, peppers, and lettuce. Fruit trees such as apple and cherry will also be integrated for easy access and frequent harvesting.",
+    "zone_2": "Zone 2 will consist of berry bushes such as blueberries, raspberries, and blackberries, as well as perennial vegetables like asparagus and rhubarb. A small pond will be included to attract wildlife and provide a water source for irrigation.",
+    "zone_3": "Zone 3 will focus on larger fruit trees like peach, plum, and pear, as well as nut trees such as chestnut and walnut. This zone will also incorporate bee hives for pollination and honey production.",
+    "zone_4": "Zone 4 will be left mostly wild to support native plant species and provide habitat for local wildlife. This area will be managed with controlled burns and selective clearing to maintain a healthy ecosystem.",
+    "water": "Water management systems will include rainwater harvesting from the roof for irrigation, greywater recycling from the house for non-edible plants, and swales and berms to prevent erosion and promote groundwater recharge.",
+    "soil": "Soil management approaches will involve composting kitchen scraps and yard waste to create nutrient-rich soil, cover cropping to prevent erosion and improve soil structure, and mulching to retain moisture and suppress weeds.",
+    "power": "Energy systems will include a combination of solar panels for electricity, solar water heaters for hot water, and wood stoves for heating. Energy-efficient appliances and passive solar design will also be utilized to reduce energy consumption.",
+    "structures": [
+      "Greenhouse",
+      "Chicken coop",
+      "Tool shed",
+      "glamp tent"
+    ],
+    "category": "",
+    "funding_needs": "",
+    "created_by": "131413a4-9b93-412d-92dd-9acc4fd36e04",
+    "created_at": "2025-04-08T04:39:00.525992+00:00",
+    "updated_at": "2025-04-08T14:39:09.592678+00:00"
+  },
+  {
+    "id": "234ae08f-c43d-43d9-a54c-75c728ee0020",
+    "title": "Maplecrest Harmony: A Permaculture Haven",
+    "location": "Maplecrest, NY",
+    "property_status": "owned_land",
+    "values_mission_goals": "Mission Statement:\nOur mission is to create an innovative makerspace, incubator, and tech retreat house that stands as a beacon of sustainability, regeneration, and community in the country. We aim to provide a space where individuals can come together to foster creativity, collaboration, and sustainable practices while advancing cutting-edge technologies and ideas.\n\nGoals:\n1. Sustainability: Implementing permaculture principles and sustainable design practices to minimize our environmental impact and promote regenerative systems within the retreat house.\n2. Innovation: Cultivating a space that fosters creativity, innovation, and collaboration among residents and guests, encouraging the development of cutting-edge technologies and ideas.\n3. Community Building: Establishing a vibrant community that supports and uplifts each other, creating a network of like-minded individuals dedicated to sustainability and innovation.\n4. Education and Outreach: Offering workshops, seminars, and programs that educate and inspire individuals to adopt sustainable practices and incorporate regenerative design in their own lives and projects.\n5. Eco-conscious Living: Encouraging and promoting eco-conscious living practices among residents and guests, demonstrating that sustainable living can be both fulfilling and enriching.\n6. Impact and Influence: Aspiring to be a model of sustainable living and innovation, influencing others to adopt similar practices and create positive change in their communities and beyond.\n7. Continuous Improvement: Striving for ongoing improvement in our sustainability practices, innovation initiatives, community engagement, and overall impact to ensure that we remain at the forefront of eco-conscious and innovative retreat spaces in the country.",
+    "guilds": [
+      "Apple Guild: Apple tree, comfrey, chives, marigold",
+      "Berry Guild: Blueberry bush, strawberry plant, borage, clover",
+      "Herb Guild: Sage, thyme, oregano, lavender, yarrow"
+    ],
+    "team": [],
+    "zone_0": "The main building will feature passive solar design, rainwater harvesting systems, and green roof for insulation and biodiversity.",
+    "zone_1": "Zone 1 will include culinary herbs, perennial vegetables like asparagus and rhubarb, and fruit trees such as apple and cherry.",
+    "zone_2": "Zone 2 will consist of nitrogen-fixing plants like clover, comfrey for mulch, and berries like blueberries and raspberries.",
+    "zone_3": "Zone 3 will have rotational crops like corn and beans, along with bee-friendly flowers for pollination.",
+    "zone_4": "Zone 4 will be designated as semi-wild areas with native plants, wildlife habitats, and walking trails.",
+    "water": "Water management will include swales for rainwater capture, a greywater recycling system, and a pond for irrigation and wildlife.",
+    "soil": "Soil management will focus on composting, cover cropping, and vermiculture to improve soil fertility and structure.",
+    "power": "Energy systems will include solar panels, small wind turbines, and passive solar design for heating and cooling.",
+    "structures": [
+      "Greenhouse for season extension",
+      "Chicken coop for pest control and eggs",
+      "19 domes"
+    ],
+    "category": "",
+    "funding_needs": "",
+    "created_by": "131413a4-9b93-412d-92dd-9acc4fd36e04",
+    "created_at": "2025-04-08T17:23:48.798716+00:00",
+    "updated_at": "2025-04-08T17:23:48.798716+00:00"
+  },
+  {
+    "id": "b5ccdf70-459b-415c-87a9-958b8cf7812f",
+    "title": "Cabarete Eco Oasis",
+    "location": "cabarete, dr",
+    "property_status": "owned_land",
+    "values_mission_goals": "Creating a regenerative oasis that harmonizes with nature, promotes biodiversity, and fosters community resilience in Cabarete, DR.",
+    "guilds": [
+      "Three Sisters Guild: corn, beans, and squash",
+      "Citrus Guild: citrus trees with herbs and nitrogen-fixing plants",
+      "Backyard Chickens Guild: chickens with mulberry and kitchen scraps"
+    ],
+    "team": [],
+    "zone_0": "A passive solar house with green roof, rainwater harvesting system, and natural ventilation to minimize energy use and blend with the landscape.",
+    "zone_1": "Banana circles, herb spirals, and keyhole gardens with herbs, lettuce, and cherry tomatoes for easy access and frequent harvesting.",
+    "zone_2": "Fruit tree orchard with mangoes, avocados, and citrus trees interplanted with nitrogen-fixing plants like pigeon peas and comfrey.",
+    "zone_3": "Swales and food forests with perennial crops like papayas, guavas, and moringa for occasional maintenance and abundant yields.",
+    "zone_4": "Preserved native vegetation areas with wildflowers, shrubs, and trees to support local wildlife and maintain ecosystem balance.",
+    "water": "Greywater recycling system for irrigation, swales and ponds for rainwater retention, and drip irrigation for efficient water use.",
+    "soil": "Composting stations for organic waste recycling, cover cropping, mulching, and vermiculture for soil fertility and health.",
+    "power": "Solar panels for electricity, solar water heaters, and biogas digesters for cooking gas from organic waste.",
+    "structures": [
+      "Compost Bin",
+      "Rainwater Harvesting System",
+      "Greenhouse",
+      "Shade Structures"
+    ],
+    "category": "",
+    "funding_needs": "",
+    "created_by": "131413a4-9b93-412d-92dd-9acc4fd36e04",
+    "created_at": "2025-04-09T16:15:22.327749+00:00",
+    "updated_at": "2025-04-09T16:15:22.327749+00:00"
+  }
+]

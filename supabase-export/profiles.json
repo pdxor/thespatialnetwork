@@ -1,0 +1,80 @@
+[
+  {
+    "id": "bd455e86-c689-429e-a6b8-333bd86c0beb",
+    "user_id": "ab50c978-19aa-46ac-b4c8-e6e97013ee5b",
+    "name": "Demo Dawg",
+    "email": "demo@example.com",
+    "short_term_mission": "Create the master team that can blast projects into full tilt with a flick of the button.",
+    "long_term_mission": "To maintain and run a super successful innovation incubator that is both tech and wellness focused. Also to create a village of perminant and visiting members of this initiative. ",
+    "skills": [],
+    "location": "Windham NY",
+    "avatar_url": null,
+    "joined_at": "2025-04-08T03:50:36.268+00:00",
+    "updated_at": "2025-04-08T03:50:36.532806+00:00"
+  },
+  {
+    "id": "165f5135-bff2-49fa-83c9-084f7c763aad",
+    "user_id": "dc221a7c-45dc-4ef4-a315-8724d70ec6cd",
+    "name": "Kahlil Calavas",
+    "email": "kahlilcalavas@gmail.com",
+    "short_term_mission": null,
+    "long_term_mission": null,
+    "skills": [],
+    "location": null,
+    "avatar_url": null,
+    "joined_at": "2025-04-08T04:03:20.56+00:00",
+    "updated_at": "2025-04-08T04:03:20.583974+00:00"
+  },
+  {
+    "id": "2c0f14b7-d46e-4259-bba4-250f4688b859",
+    "user_id": "afb5f89e-20ce-4f69-a0d6-a3ab31d7d8e6",
+    "name": "Kahlil Calavas",
+    "email": "kahlilc54@gmail.com",
+    "short_term_mission": null,
+    "long_term_mission": null,
+    "skills": [],
+    "location": null,
+    "avatar_url": null,
+    "joined_at": "2025-04-08T04:03:41.981+00:00",
+    "updated_at": "2025-04-08T04:03:42.014192+00:00"
+  },
+  {
+    "id": "f2238449-a827-4ff8-ac10-79b173583c37",
+    "user_id": "131413a4-9b93-412d-92dd-9acc4fd36e04",
+    "name": "ken",
+    "email": "kahlil@terra-lux.org",
+    "short_term_mission": null,
+    "long_term_mission": null,
+    "skills": [],
+    "location": null,
+    "avatar_url": null,
+    "joined_at": "2025-04-08T04:37:12.556+00:00",
+    "updated_at": "2025-04-08T04:37:12.65908+00:00"
+  },
+  {
+    "id": "6fe41b31-b138-4a7b-be13-b7f997ccd960",
+    "user_id": "9bf7061c-6dad-4a85-ba6f-ce39ef7ab8d5",
+    "name": "Greg DeCarlo",
+    "email": "gregdecarlo@outlook.com",
+    "short_term_mission": null,
+    "long_term_mission": null,
+    "skills": [],
+    "location": null,
+    "avatar_url": null,
+    "joined_at": "2025-04-08T05:17:24.023+00:00",
+    "updated_at": "2025-04-08T05:17:24.120904+00:00"
+  },
+  {
+    "id": "cc12ccbb-b6bd-48a6-8e1d-20a38180c37e",
+    "user_id": "e364a390-3684-4acb-82f5-064916342c10",
+    "name": "Jordan Larsen",
+    "email": "civilizationexplorer@gmail.com",
+    "short_term_mission": null,
+    "long_term_mission": null,
+    "skills": [],
+    "location": null,
+    "avatar_url": null,
+    "joined_at": "2025-04-08T16:45:11.412+00:00",
+    "updated_at": "2025-04-08T16:45:13.553743+00:00"
+  }
+]

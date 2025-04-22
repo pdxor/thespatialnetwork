@@ -1,0 +1,15 @@
+{
+  "tables": [
+    "profiles",
+    "projects",
+    "project_members",
+    "notification_settings",
+    "notification_logs",
+    "api_keys",
+    "business_plans",
+    "tasks",
+    "items"
+  ],
+  "exportDate": "2025-04-09T18:49:17.295Z",
+  "note": "This is a simplified schema export. For complete schema, you need to use Supabase CLI."
+}

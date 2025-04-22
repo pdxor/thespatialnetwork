@@ -1,0 +1,154 @@
+/* Calendar container */
+.calendar-container .rbc-calendar {
+  @apply font-sans rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700;
+}
+
+/* Header */
+.calendar-container .rbc-toolbar {
+  @apply mb-4 flex flex-wrap justify-between items-center;
+}
+
+.calendar-container .rbc-toolbar button {
+  @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1.5 text-sm font-medium transition-colors;
+}
+
+.calendar-container .rbc-toolbar button:hover {
+  @apply bg-gray-50 dark:bg-gray-700;
+}
+
+.calendar-container .rbc-toolbar button.rbc-active {
+  @apply bg-purple-600 dark:bg-purple-700 text-white border-purple-600 dark:border-purple-700;
+}
+
+.calendar-container .rbc-toolbar-label {
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-100;
+}
+
+/* Month view */
+.calendar-container .rbc-month-view {
+  @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+}
+
+.calendar-container .rbc-month-header {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.calendar-container .rbc-header {
+  @apply py-2 font-medium text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700;
+}
+
+.calendar-container .rbc-day-bg {
+  @apply bg-white dark:bg-gray-800 transition-colors;
+}
+
+.calendar-container .rbc-off-range-bg {
+  @apply bg-gray-50 dark:bg-gray-900/50;
+}
+
+.calendar-container .rbc-today {
+  @apply bg-purple-50 dark:bg-purple-900/20;
+}
+
+/* Events */
+.calendar-container .rbc-event {
+  @apply rounded-md shadow-sm border-none py-1 px-2 text-sm;
+}
+
+.calendar-container .rbc-event-label {
+  @apply text-xs font-medium mb-0.5;
+}
+
+.calendar-container .rbc-event-content {
+  @apply text-xs font-medium truncate;
+}
+
+/* Time grid (week/day view) */
+.calendar-container .rbc-time-view {
+  @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+}
+
+.calendar-container .rbc-time-header {
+  @apply border-b border-gray-200 dark:border-gray-700;
+}
+
+.calendar-container .rbc-time-header-content {
+  @apply border-l border-gray-200 dark:border-gray-700;
+}
+
+.calendar-container .rbc-time-content {
+  @apply border-t border-gray-200 dark:border-gray-700;
+}
+
+.calendar-container .rbc-time-slot {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.calendar-container .rbc-time-gutter {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+/* Agenda view */
+.calendar-container .rbc-agenda-view {
+  @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+}
+
+.calendar-container .rbc-agenda-table {
+  @apply border-collapse;
+}
+
+.calendar-container .rbc-agenda-table th {
+  @apply bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-2 px-3 font-medium border-b border-gray-200 dark:border-gray-700;
+}
+
+.calendar-container .rbc-agenda-table td {
+  @apply py-2 px-3 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300;
+}
+
+.calendar-container .rbc-agenda-time-cell {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.calendar-container .rbc-agenda-date-cell {
+  @apply text-gray-700 dark:text-gray-300 font-medium;
+}
+
+.calendar-container .rbc-agenda-event-cell {
+  @apply text-purple-600 dark:text-purple-400 font-medium;
+}
+
+/* Date cell */
+.calendar-container .rbc-date-cell {
+  @apply text-right p-1;
+}
+
+.calendar-container .rbc-date-cell > a {
+  @apply text-gray-700 dark:text-gray-300 font-normal text-sm p-1;
+}
+
+.calendar-container .rbc-row-bg {
+  @apply overflow-hidden;
+}
+
+/* Now indicator */
+.calendar-container .rbc-current-time-indicator {
+  @apply bg-red-500 h-0.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .calendar-container .rbc-toolbar {
+    @apply flex-col space-y-2 items-start;
+  }
+  
+  .calendar-container .rbc-toolbar-label {
+    @apply text-base;
+  }
+  
+  .calendar-container .rbc-btn-group {
+    @apply w-full flex justify-between;
+  }
+  
+  .calendar-container .rbc-btn-group button {
+    @apply text-xs px-2 py-1;
+  }
+}

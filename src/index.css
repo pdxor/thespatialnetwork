@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Base styles for light and dark mode */
+  :root {
+    --color-primary: 20 184 166; /* teal-500 */
+    --color-secondary: 6 182 212; /* cyan-500 */
+    --color-accent: 139 92 246; /* violet-500 */
+    --color-background: 249 250 251; /* gray-50 */
+    --color-card: 255 255 255; /* white */
+    --color-text: 17 24 39; /* gray-900 */
+    --color-text-muted: 107 114 128; /* gray-500 */
+    --color-border: 229 231 235; /* gray-200 */
+  }
+
+  .dark {
+    --color-primary: 20 184 166; /* teal-500 */
+    --color-secondary: 8 145 178; /* cyan-600 */
+    --color-accent: 139 92 246; /* violet-500 */
+    --color-background: 17 24 39; /* gray-900 */
+    --color-card: 31 41 55; /* gray-800 */
+    --color-text: 243 244 246; /* gray-100 */
+    --color-text-muted: 156 163 175; /* gray-400 */
+    --color-border: 55 65 81; /* gray-700 */
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200;
+  }
+
+  /* Custom scrollbar for dark mode */
+  .dark ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #1f2937; /* gray-800 */
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: #4b5563; /* gray-600 */
+    border-radius: 4px;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+  }
+  
+  /* Custom scrollbar for light mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f3f4f6; /* gray-100 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d1d5db; /* gray-300 */
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af; /* gray-400 */
+  }
+  
+  /* Ensure all modal content is scrollable */
+  .modal-content, 
+  .overflow-container,
+  [class*="overflow-y-auto"],
+  [class*="overflow-auto"] {
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@layer components {
+  /* Card styles */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 transition-colors duration-200;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-green-600 dark:bg-teal-700 hover:bg-green-700 dark:hover:bg-teal-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-accent {
+    @apply bg-purple-600 dark:bg-purple-700 hover:bg-purple-700 dark:hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-sm;
+  }
+
+  /* Form input styles */
+  .form-input {
+    @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-teal-500 focus:border-green-500 dark:focus:border-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-200;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-green {
+    @apply bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
+  }
+
+  .badge-blue {
+    @apply bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200;
+  }
+
+  .badge-yellow {
+    @apply bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200;
+  }
+
+  .badge-red {
+    @apply bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200;
+  }
+
+  .badge-purple {
+    @apply bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200;
+  }
+
+  /* Section styles */
+  .section {
+    @apply mb-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 transition-colors duration-200;
+  }
+
+  /* Heading styles */
+  .heading-1 {
+    @apply text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4;
+  }
+
+  .heading-2 {
+    @apply text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3;
+  }
+
+  .heading-3 {
+    @apply text-lg font-medium text-gray-800 dark:text-gray-100 mb-2;
+  }
+}
