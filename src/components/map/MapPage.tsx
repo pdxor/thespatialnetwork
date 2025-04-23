@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import MapView from './MapView';
 import DatabaseSetup from './DatabaseSetup';
 import { supabase } from '../../lib/supabase';
@@ -31,7 +31,7 @@ const MapPage: React.FC = () => {
   }, []);
   
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Project Map | The Spatial Network</title>
       </Helmet>
@@ -51,7 +51,7 @@ const MapPage: React.FC = () => {
           </div>
         )}
       </div>
-    </>
+    </HelmetProvider>
   );
 };
 
