@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Users, Plus, Trash2, Save, X, Sparkles, Loader2, UserPlus, Image as ImageIcon, Upload } from 'lucide-react';
+import { MapPin, Users, Plus, Trash2, Save, X, Sparkles, Loader2, UserPlus, Image as ImageIcon, Upload, Globe } from 'lucide-react';
 import AiAssistant from '../common/AiAssistant';
 import MemberSearch from '../common/MemberSearch';
 import MemberList from '../common/MemberList';
 import { generateWithOpenAI } from '../../lib/openai';
+import ProjectLocationMap from '../map/ProjectLocationMap';
 
 interface Member {
   id: string;
@@ -59,6 +60,10 @@ const ProjectCreateForm: React.FC = () => {
   // Structures
   const [newStructure, setNewStructure] = useState('');
   const [structures, setStructures] = useState<string[]>([]);
+
+  const [locationFromMap, setLocationFromMap] = useState<boolean>(false);
+  const [mapLatitude, setMapLatitude] = useState<number | null>(null);
+  const [mapLongitude, setMapLongitude] = useState<number | null>(null);
 
   // Fetch current user's profile to add as default team member
   useEffect(() => {
@@ -202,12 +207,12 @@ const ProjectCreateForm: React.FC = () => {
             if (suggestions.power) setPower(ensureString(suggestions.power));
             if (suggestions.guilds && Array.isArray(suggestions.guilds)) {
               // Make sure each guild is a string
-              const stringGuilds = suggestions.guilds.map(guild => ensureString(guild));
+              const stringGuilds = suggestions.guilds.map((guild: any) => ensureString(guild));
               setGuilds(stringGuilds);
             }
             if (suggestions.structures && Array.isArray(suggestions.structures)) {
               // Make sure each structure is a string
-              const stringStructures = suggestions.structures.map(structure => ensureString(structure));
+              const stringStructures = suggestions.structures.map((structure: any) => ensureString(structure));
               setStructures(stringStructures);
             }
           }
@@ -232,10 +237,10 @@ const ProjectCreateForm: React.FC = () => {
                 if (suggestions.soil) setSoil(ensureString(suggestions.soil));
                 if (suggestions.power) setPower(ensureString(suggestions.power));
                 if (suggestions.guilds && Array.isArray(suggestions.guilds)) {
-                  setGuilds(suggestions.guilds.map(guild => ensureString(guild)));
+                  setGuilds(suggestions.guilds.map((guild: any) => ensureString(guild)));
                 }
                 if (suggestions.structures && Array.isArray(suggestions.structures)) {
-                  setStructures(suggestions.structures.map(structure => ensureString(structure)));
+                  setStructures(suggestions.structures.map((structure: any) => ensureString(structure)));
                 }
               }
             }
@@ -445,6 +450,19 @@ const ProjectCreateForm: React.FC = () => {
     }
   };
 
+  // Handle location selection from the map
+  const handleLocationSelect = (latitude: number, longitude: number) => {
+    setMapLatitude(latitude);
+    setMapLongitude(longitude);
+    
+    // Use reverse geocoding to get location name if available, otherwise just use coordinates
+    if (latitude && longitude) {
+      // Format latitude and longitude for display
+      const formattedLocation = `Lat: ${latitude.toFixed(6)}, Long: ${longitude.toFixed(6)}`;
+      setLocation(formattedLocation);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Create New Project</h1>
@@ -499,26 +517,76 @@ const ProjectCreateForm: React.FC = () => {
               </div>
             </div>
             
-            <div className="mb-4">
+            <div className="md:col-span-2 mb-4">
               <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-2" htmlFor="location">
-                Location
+                Project Location *
               </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
+              
+              <div className="flex mb-2">
                 <input
                   id="location"
                   type="text"
-                  className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  className={`flex-1 px-4 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 ${
+                    locationFromMap ? 'bg-gray-100 dark:bg-gray-800' : ''
+                  }`}
                   value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="City, Country (e.g., Portland, USA)"
+                  onChange={(e) => {
+                    setLocation(e.target.value);
+                    // Clear map coordinates if user edits the text directly
+                    if (locationFromMap && e.target.value !== location) {
+                      setLocationFromMap(false);
+                      setMapLatitude(null);
+                      setMapLongitude(null);
+                    }
+                  }}
+                  required
+                  readOnly={locationFromMap}
+                  placeholder="Enter a location or use the map"
                 />
-                {location && (
-                  <div className="text-xs text-green-600 dark:text-green-400 mt-1">
-                    Location-specific recommendations available for zones and infrastructure
-                  </div>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setLocationFromMap(!locationFromMap)}
+                  className="px-3 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
+                  title={locationFromMap ? "Enter location manually" : "Select location on map"}
+                >
+                  <Globe className="h-5 w-5" />
+                </button>
               </div>
+              
+              {locationFromMap && (
+                <div className="mt-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                  <div className="h-64">
+                    <ProjectLocationMap
+                      editable={true}
+                      height="100%"
+                      initialLatitude={mapLatitude || undefined}
+                      initialLongitude={mapLongitude || undefined}
+                      onLocationAdd={handleLocationSelect}
+                    />
+                  </div>
+                  <div className="p-3 bg-gray-50 dark:bg-gray-700 text-sm text-gray-600 dark:text-gray-300">
+                    {mapLatitude && mapLongitude ? (
+                      <div className="flex justify-between items-center">
+                        <span>Selected location: {mapLatitude.toFixed(6)}, {mapLongitude.toFixed(6)}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setLocationFromMap(false);
+                            setMapLatitude(null);
+                            setMapLongitude(null);
+                            setLocation('');
+                          }}
+                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <span>Click on the map to select a location</span>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           

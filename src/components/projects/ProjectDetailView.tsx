@@ -24,18 +24,21 @@ import {
   Image as ImageIcon,
   Sparkles,
   Loader2,
-  DollarSign
+  DollarSign,
+  Globe
 } from 'lucide-react';
 import BusinessPlanGenerator from './BusinessPlanGenerator';
 import ProjectMembersModal from './ProjectMembersModal';
 import { generateWithOpenAI } from '../../lib/openai';
 import { useAuth } from '../../context/AuthContext';
 import BudgetTracker from '../inventory/BudgetTracker';
+import ProjectLocationMap from '../map/ProjectLocationMap';
 
 type Project = Database['public']['Tables']['projects']['Row'];
 type Task = Database['public']['Tables']['tasks']['Row'];
 type InventoryItem = Database['public']['Tables']['items']['Row'];
 type Event = Database['public']['Tables']['events']['Row'];
+type ProjectLocation = Database['public']['Tables']['project_locations']['Row'];
 
 const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propProjectId }) => {
   const { id: paramProjectId } = useParams();
@@ -54,7 +57,10 @@ const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propPr
   const [isProjectComplete, setIsProjectComplete] = useState(false);
   const [showMembersModal, setShowMembersModal] = useState(false);
   const [generatingImage, setGeneratingImage] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'budget'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'budget' | 'locations'>('overview');
+  const [projectLocations, setProjectLocations] = useState<ProjectLocation[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<ProjectLocation | null>(null);
+  const [showLocationsTab, setShowLocationsTab] = useState(false);
 
   useEffect(() => {
     if (!projectId) return;
@@ -75,6 +81,22 @@ const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propPr
           setProject(data);
           // Check if project is at least 90% complete
           checkProjectCompletion(data);
+          
+          // Fetch project locations
+          const { data: locationsData, error: locationsError } = await supabase
+            .from('project_locations')
+            .select('*')
+            .eq('project_id', projectId);
+            
+          if (locationsError) {
+            console.error('Error fetching project locations:', locationsError);
+          } else {
+            setProjectLocations(locationsData || []);
+            // Show the locations tab if locations exist
+            if (locationsData && locationsData.length > 0) {
+              setShowLocationsTab(true);
+            }
+          }
           
           // Fetch related tasks
           const { data: tasksData, error: tasksError } = await supabase
@@ -414,6 +436,17 @@ const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propPr
           >
             <DollarSign className="h-4 w-4 mr-1" />
             Budget
+          </button>
+          <button
+            onClick={() => setActiveTab('locations')}
+            className={`py-4 px-6 font-medium text-sm flex items-center ${
+              activeTab === 'locations'
+                ? 'border-b-2 border-green-500 dark:border-green-400 text-green-600 dark:text-green-400'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+            }`}
+          >
+            <Globe className="h-4 w-4 mr-1" />
+            Locations
           </button>
         </nav>
       </div>
@@ -847,77 +880,6 @@ const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propPr
               </div>
             </div>
             
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-5">Infrastructure</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {project.water && (
-                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-blue-200 dark:hover:border-blue-700">
-                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-                      <Droplets className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-                      Water Systems
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">{project.water}</p>
-                  </div>
-                )}
-                
-                {project.soil && (
-                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-green-200 dark:hover:border-green-700">
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-                      <Sprout className="h-6 w-6 text-green-600 dark:text-green-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-                      Soil Management
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">{project.soil}</p>
-                  </div>
-                )}
-                
-                {project.power && (
-                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-yellow-200 dark:hover:border-yellow-700">
-                    <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mb-4">
-                      <Zap className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-                      Power Systems
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">{project.power}</p>
-                  </div>
-                )}
-                
-                {project.structures && project.structures.length > 0 && (
-                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 hover:border-purple-200 dark:hover:border-purple-700">
-                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4">
-                      <Building2 className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-                      Structures
-                    </h3>
-                    <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-                      {project.structures.map((structure, index) => (
-                        <li key={index}>{structure}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                
-                {!project.water && !project.soil && !project.power && (!project.structures || project.structures.length === 0) && (
-                  <div className="col-span-3 bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 border-dashed text-center">
-                    <p className="text-gray-500 dark:text-gray-400">No infrastructure information provided yet</p>
-                    <Link 
-                      to={`/projects/edit/${project.id}`}
-                      className="inline-flex items-center mt-3 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                    >
-                      <Edit className="h-4 w-4 mr-1" />
-                      Add infrastructure information
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-            
             {/* Business Plan Generator */}
             <BusinessPlanGenerator project={project} visible={isProjectComplete} />
             
@@ -943,11 +905,110 @@ const ProjectDetailView: React.FC<{ projectId?: string }> = ({ projectId: propPr
                 </div>
               </div>
             )}
+            
+            {/* Add a small map preview in the overview tab */}
+            {projectLocations.length > 0 && (
+              <div className="mb-8 bg-gray-50 dark:bg-gray-700/30 p-6 rounded-lg border border-gray-100 dark:border-gray-700 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 flex items-center">
+                  <MapPin className="h-5 w-5 mr-2 text-green-600 dark:text-teal-500" />
+                  Project Locations
+                </h3>
+                <div className="h-64 mb-2">
+                  <ProjectLocationMap 
+                    projectId={projectId} 
+                    locations={projectLocations}
+                    height="250px"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setActiveTab('locations')}
+                    className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium"
+                  >
+                    View All Locations →
+                  </button>
+                </div>
+              </div>
+            )}
           </>
         )}
         
         {activeTab === 'budget' && (
           <BudgetTracker projectId={project.id} />
+        )}
+        
+        {activeTab === 'locations' && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Project Locations</h2>
+              <Link
+                to={`/map`}
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm flex items-center"
+              >
+                <MapPin className="h-4 w-4 mr-2" />
+                Manage Locations
+              </Link>
+            </div>
+            
+            {projectLocations.length === 0 ? (
+              <div className="p-8 text-center">
+                <MapPin className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No locations added yet</h3>
+                <p className="text-gray-500 dark:text-gray-400 mb-6">Add locations to your project to visualize it on the map</p>
+                <Link
+                  to={`/map`}
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-sm inline-flex items-center"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Location
+                </Link>
+              </div>
+            ) : (
+              <>
+                <div className="mb-8">
+                  <ProjectLocationMap 
+                    projectId={projectId} 
+                    locations={projectLocations}
+                    height="400px"
+                    onLocationSelect={setSelectedLocation}
+                  />
+                </div>
+                
+                {selectedLocation && (
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg p-4 mb-6">
+                    <h3 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">Selected Location</h3>
+                    <p><span className="font-medium">Description:</span> {selectedLocation.description || 'No description'}</p>
+                    <p><span className="font-medium">Coordinates:</span> {selectedLocation.latitude.toFixed(6)}, {selectedLocation.longitude.toFixed(6)}</p>
+                  </div>
+                )}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {projectLocations.map(location => (
+                    <div 
+                      key={location.id}
+                      className={`p-4 rounded-lg border cursor-pointer ${
+                        selectedLocation?.id === location.id 
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-600' 
+                          : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/20'
+                      }`}
+                      onClick={() => setSelectedLocation(location)}
+                    >
+                      <div className="flex items-center mb-2">
+                        <div 
+                          className="w-4 h-4 rounded-full mr-2"
+                          style={{ backgroundColor: location.color || '#4f46e5' }}
+                        />
+                        <h4 className="font-medium">{location.description || 'Project Location'}</h4>
+                      </div>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                        {location.latitude.toFixed(6)}, {location.longitude.toFixed(6)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -513,6 +513,38 @@ export interface Database {
           recurring_end_date?: string | null
         }
       }
+      project_locations: {
+        Row: {
+          id: string
+          project_id: string
+          latitude: number
+          longitude: number
+          description: string | null
+          color: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          project_id: string
+          latitude: number
+          longitude: number
+          description?: string | null
+          color?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          project_id?: string
+          latitude?: number
+          longitude?: number
+          description?: string | null
+          color?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }
