@@ -36,7 +36,6 @@ const EventCreateForm: React.FC = () => {
   const [endTime, setEndTime] = useState('');
   const [allDay, setAllDay] = useState(true);
   const [eventLocation, setEventLocation] = useState('');
-  const [isProjectEvent, setIsProjectEvent] = useState(projectIdFromQuery ? true : false);
   const [projectId, setProjectId] = useState(projectIdFromQuery || '');
   const [attendees, setAttendees] = useState<Member[]>([]);
   const [showMemberSearch, setShowMemberSearch] = useState(false);
@@ -157,8 +156,8 @@ const EventCreateForm: React.FC = () => {
         end_time: allDay ? null : endTime,
         all_day: allDay,
         location: eventLocation || null,
-        is_project_event: isProjectEvent,
-        project_id: isProjectEvent && projectId ? projectId : null,
+        is_project_event: !!projectId,
+        project_id: projectId || null,
         created_by: user.id,
         attendees: attendees.map(a => a.id),
         color,
@@ -180,7 +179,7 @@ const EventCreateForm: React.FC = () => {
       
       // Navigate to appropriate page after success
       setTimeout(() => {
-        if (isProjectEvent && projectId) {
+        if (projectId) {
           navigate(`/projects/${projectId}/calendar`);
         } else {
           navigate('/calendar');
@@ -457,66 +456,41 @@ const EventCreateForm: React.FC = () => {
         )}
         
         <div className="mb-6">
-          <div className="flex items-center mb-2">
-            <input
-              id="isProjectEvent"
-              type="checkbox"
-              className="h-4 w-4 text-purple-500 dark:text-purple-400 focus:ring-purple-400 dark:focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded"
-              checked={isProjectEvent}
-              onChange={(e) => {
-                setIsProjectEvent(e.target.checked);
-                if (!e.target.checked) {
-                  setProjectId('');
-                } else if (projectIdFromQuery) {
-                  setProjectId(projectIdFromQuery);
-                }
-              }}
-            />
-            <label className="ml-2 block text-gray-700 dark:text-gray-200 text-sm font-medium" htmlFor="isProjectEvent">
-              Associate with a project
-            </label>
+          <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-2" htmlFor="projectId">
+            Project
+          </label>
+          <div className="relative">
+            <Folder className="absolute left-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-500" />
+            <select
+              id="projectId"
+              className="w-full pl-10 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 dark:bg-gray-700 dark:text-gray-100 appearance-none"
+              value={projectId}
+              onChange={(e) => setProjectId(e.target.value)}
+            >
+              <option value="">No project (personal event)</option>
+              {projects.map(project => (
+                <option key={project.id} value={project.id}>{project.title}</option>
+              ))}
+            </select>
+            <div className="absolute right-3 top-3 pointer-events-none">
+              <svg className="h-4 w-4 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
           
-          {isProjectEvent && (
-            <div className="mt-2 p-3 bg-gray-50 dark:bg-gray-700/30 rounded-md border border-gray-200 dark:border-gray-700">
-              <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-2" htmlFor="projectId">
-                Project *
-              </label>
-              <div className="relative">
-                <Folder className="absolute left-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-500" />
-                <select
-                  id="projectId"
-                  className="w-full pl-10 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 dark:bg-gray-700 dark:text-gray-100 appearance-none"
-                  value={projectId}
-                  onChange={(e) => setProjectId(e.target.value)}
-                  required={isProjectEvent}
-                >
-                  <option value="">Select a project</option>
-                  {projects.map(project => (
-                    <option key={project.id} value={project.id}>{project.title}</option>
-                  ))}
-                </select>
-                <div className="absolute right-3 top-3 pointer-events-none">
-                  <svg className="h-4 w-4 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-              
-              {projects.length === 0 && (
-                <p className="text-sm text-amber-600 dark:text-amber-400 mt-2 flex items-center">
-                  <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                  </svg>
-                  You don't have any projects yet. Create a project first to assign this event.
-                </p>
-              )}
-              
-              {projectId && (
-                <div className="mt-2 text-sm text-green-600 dark:text-green-400">
-                  This event will be associated with the selected project.
-                </div>
-              )}
+          {projects.length === 0 && (
+            <p className="text-sm text-amber-600 dark:text-amber-400 mt-2 flex items-center">
+              <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              You don't have any projects yet. Create a project first to assign this event.
+            </p>
+          )}
+          
+          {projectId && (
+            <div className="mt-2 text-sm text-green-600 dark:text-green-400">
+              This event will be associated with the selected project.
             </div>
           )}
         </div>
