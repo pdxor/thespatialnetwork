@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
-import { Leaf, User, LogOut, Settings, CheckSquare, Package, Menu, X, Mic, Bell, Calendar, Award } from 'lucide-react';
+import { Leaf, User, LogOut, Settings, CheckSquare, Package, Menu, X, Mic, Bell, Calendar, Award, MapPin } from 'lucide-react';
 import UniversalVoiceInput from '../common/UniversalVoiceInput';
 import ThemeToggle from '../common/ThemeToggle';
 import FloatingMicButton from '../common/FloatingMicButton';
@@ -277,6 +277,13 @@ const Layout: React.FC = () => {
                   Calendar
                 </Link>
                 <Link
+                  to="/map"
+                  className={`px-3 py-2 rounded-lg flex items-center transition-colors ${location.pathname.startsWith('/map') ? 'bg-green-600 dark:bg-teal-800 text-white' : 'hover:bg-green-600 dark:hover:bg-teal-800 text-white'}`}
+                >
+                  <MapPin className="h-4 w-4 mr-1" />
+                  Map
+                </Link>
+                <Link
                   to="/inventory"
                   className={`px-3 py-2 rounded-lg flex items-center transition-colors ${location.pathname.startsWith('/inventory') ? 'bg-green-600 dark:bg-teal-800 text-white' : 'hover:bg-green-600 dark:hover:bg-teal-800 text-white'}`}
                 >
@@ -503,6 +510,14 @@ const Layout: React.FC = () => {
                     >
                       <Calendar className="h-5 w-5 mr-2" />
                       Calendar
+                    </Link>
+                    <Link
+                      to="/map"
+                      className={`px-4 py-3 rounded-lg w-full flex items-center ${location.pathname.startsWith('/map') ? 'bg-green-600 dark:bg-teal-800' : 'hover:bg-green-700 dark:hover:bg-teal-700'} text-white transition-colors`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <MapPin className="h-5 w-5 mr-2" />
+                      Map
                     </Link>
                     <Link
                       to="/inventory"
