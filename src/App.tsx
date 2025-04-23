@@ -47,6 +47,9 @@ import BadgeQuestCreateForm from './components/badges/BadgeQuestCreateForm';
 import BadgeQuestEditForm from './components/badges/BadgeQuestEditForm';
 import BadgeQuestDetailView from './components/badges/BadgeQuestDetailView';
 
+// Map components
+import { MapPage } from './components/map';
+
 function App() {
   return (
     <AuthProvider>
@@ -314,6 +317,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <BadgeQuestEditForm />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Map Routes */}
+            <Route 
+              path="map" 
+              element={
+                <ProtectedRoute>
+                  <MapPage />
                 </ProtectedRoute>
               } 
             />
