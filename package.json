@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "export": "node scripts/export-supabase-data.js",
-    "import": "node scripts/import-supabase-data.js"
+    "import": "node scripts/import-supabase-data.js",
+    "netlify": "npx netlify deploy --prod"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.1",
