@@ -576,7 +576,14 @@ const MapView: React.FC = () => {
                   outlineWidth: 2,
                   heightReference: HeightReference.CLAMP_TO_GROUND
                 }}
-                billboard={{
+                model={location.color !== '#ef4444' ? undefined :{
+                  uri: './biotekt.glb',
+                  scale: 0.5,
+                  minimumPixelSize: 128,
+                  maximumScale: 20000,
+                  heightReference: HeightReference.CLAMP_TO_GROUND
+                }}
+                billboard={location.color === '#ef4444' ? undefined :{
                   image: '/marker-pin.svg',
                   verticalOrigin: 1, // BOTTOM
                   scale: 0.5,
