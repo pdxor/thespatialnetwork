@@ -7,20 +7,29 @@ import UniversalVoiceInput from '../common/UniversalVoiceInput';
 import ThemeToggle from '../common/ThemeToggle';
 import FloatingMicButton from '../common/FloatingMicButton';
 
+interface Notification {
+  id: string;
+  message: string;
+  read: boolean;
+}
+
 const Layout: React.FC = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [demoLoading, setDemoLoading] = useState(false);
+  const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showVoiceInput, setShowVoiceInput] = useState(false);
   const [currentProject, setCurrentProject] = useState<{ id: string; title: string } | null>(null);
   const [notifications, setNotifications] = useState<number>(0);
+  const [notificationList, setNotificationList] = useState<Notification[]>([]);
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const notificationButtonRef = useRef<HTMLButtonElement>(null);
+  const userButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const hamburgerButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -96,6 +105,7 @@ const Layout: React.FC = () => {
     setLoading(true);
     try {
       await signOut();
+      setShowNotificationMenu(false); // Close the notification menu
       setShowUserMenu(false); // Close the menu
       setIsMobileMenuOpen(false); // Close mobile menu if open
       navigate('/login');
@@ -110,11 +120,19 @@ const Layout: React.FC = () => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       // Only close if click is outside both the menu and the button
+
+      if(
+        showNotificationMenu &&
+        notificationButtonRef.current && 
+        !notificationButtonRef.current.contains(e.target as Node)
+      ) {
+        setShowNotificationMenu(false);
+      }
+
       if (
-        menuRef.current && 
-        !menuRef.current.contains(e.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(e.target as Node)
+        showUserMenu &&
+        userButtonRef.current &&
+        !userButtonRef.current.contains(e.target as Node)
       ) {
         setShowUserMenu(false);
       }
@@ -197,6 +215,59 @@ const Layout: React.FC = () => {
       setDemoLoading(false);
     }
   };
+
+  useEffect(() => {
+    // const fetchNotifications = async () => {
+    //   if (user) {
+    //     try {
+    //       const { data, error } = await supabase
+    //         .from('notifications')
+    //         .select('*')
+    //         .eq('user_id', user.id)
+    //         .order('created_at', { ascending: false });
+
+    //       if (error) throw error;
+    //       setNotificationList(data || []);
+    //       setNotifications(data ? data.filter((n) => !n.read).length : 0);
+    //     } catch (err) {
+    //       console.error('Error fetching notifications:', err);
+    //     }
+    //   }
+    // };
+
+    //fetchNotifications();
+
+    const fetchTasks = async () => {
+      if (user && showNotificationMenu) {
+        try {
+          // Fetch tasks where the user is either the creator or the assignee
+          const { data, error } = await supabase
+            .from('tasks')
+            .select('*, projects(title)')
+            .or(`created_by.eq.${user.id},assigned_to.eq.${user.id}`)
+            .order('due_date', { ascending: true })
+            .order('priority', { ascending: false });
+
+          if (error) {
+            console.error('Error fetching tasks:', error);
+          } else {
+            console.log('Fetched tasks:', data);
+            const notificationData = data?.map((task) => ({
+              id: task.id,
+              message: task.title,
+              read: task.status === 'completed',
+            }));
+            setNotificationList(notificationData || []);
+            setNotifications(notificationData ? notificationData.filter((notification) => !notification.read).length : 0);
+          }
+        } catch (err) {
+          console.error('Unexpected error:', err);
+        }
+      }
+    };
+
+    fetchTasks();
+  }, [user, showNotificationMenu]);
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col transition-colors duration-200">
@@ -305,7 +376,14 @@ const Layout: React.FC = () => {
                 </Link>
                 
                 {/* Notification Bell */}
-                <button className="p-2 rounded-full hover:bg-green-600 dark:hover:bg-teal-800 relative">
+                <button 
+                    ref={notificationButtonRef}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowNotificationMenu(!showNotificationMenu);
+                    }}
+                    className="p-2 rounded-full hover:bg-green-600 dark:hover:bg-teal-800 relative"
+                  >
                   <Bell className="h-5 w-5 text-white" />
                   {notifications > 0 && (
                     <span className="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
@@ -328,7 +406,7 @@ const Layout: React.FC = () => {
                 
                 <div className="relative inline-block ml-2">
                   <button 
-                    ref={buttonRef}
+                    ref={userButtonRef}
                     onClick={(e) => {
                       e.stopPropagation();
                       setShowUserMenu(!showUserMenu);
@@ -349,6 +427,40 @@ const Layout: React.FC = () => {
                       )}
                     </div>
                   </button>
+
+                  {showNotificationMenu && (
+                    <div
+                      className="absolute mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-10 overflow-hidden"
+                      style={{ right: '120px' }}
+                      onClick={(e) => e.stopPropagation()} // Prevent clicks inside menu from closing it
+                    >
+                      <div className="py-2">
+                        {notificationList.length > 0 ? (
+                          notificationList.map((notification) => (
+                            <Link
+                              key={notification.id}
+                              to={`/tasks/${notification.id}`}
+                              className={`block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${notification.read ? '' : 'font-bold'}`}
+                              onClick={() => setShowNotificationMenu(false)}
+                            >
+                              <div className="flex items-center">
+                                {notification.read ? (
+                                  <CheckSquare className="h-12 w-12 mr-8 text-gray-500 dark:text-gray-400" />
+                                ) : (
+                                  <Bell className="h-12 w-12 mr-8 text-green-500 dark:text-cyan-400 animate-pulse" />
+                                )}
+                                {notification.message}
+                              </div>
+                            </Link>
+                          ))
+                        ) : (
+                          <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+                            No new notifications
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   
                   {showUserMenu && (
                     <div 
