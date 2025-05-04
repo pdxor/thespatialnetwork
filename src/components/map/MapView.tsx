@@ -16,7 +16,7 @@ const MapView: React.FC<MapViewProps> = ({ projects }) => {
   const iframeUrl = `https://thespatialnetwork.com/spatialmesh/new-earth-5?project_choices=${encodeURIComponent(projectChoices)}`;
 
   return (
-    <div style={{ width: '100%', height: '100vh' }}>
+    <div style={{ width: '100%', height: '85vh' }}>
       <iframe
         src={iframeUrl}
         style={{
