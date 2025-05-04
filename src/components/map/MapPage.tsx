@@ -3,11 +3,15 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import MapView from './MapView';
 import DatabaseSetup from './DatabaseSetup';
 import { supabase } from '../../lib/supabase';
+import { Database } from '../../types/supabase';
+
+type Project = Database['public']['Tables']['projects']['Row'];
 
 const MapPage: React.FC = () => {
   const [needsSetup, setNeedsSetup] = useState<boolean | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
   
-  // Check if project_locations table exists
+  // Check if project_locations table exists and fetch projects
   useEffect(() => {
     const checkTableExists = async () => {
       try {
@@ -20,6 +24,15 @@ const MapPage: React.FC = () => {
           setNeedsSetup(true);
         } else {
           setNeedsSetup(false);
+          
+          // Fetch projects
+          const { data: projectsData, error: projectsError } = await supabase
+            .from('projects')
+            .select('*')
+            .order('created_at', { ascending: false });
+            
+          if (projectsError) throw projectsError;
+          setProjects(projectsData || []);
         }
       } catch (err) {
         console.error('Error checking table:', err);
@@ -43,7 +56,7 @@ const MapPage: React.FC = () => {
             <DatabaseSetup />
           </div>
         )}
-        {needsSetup === false && <MapView />}
+        {needsSetup === false && <MapView projects={projects} />}
         {needsSetup === null && (
           <div className="flex items-center justify-center p-8">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
